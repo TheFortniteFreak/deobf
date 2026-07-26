@@ -143,7 +143,6 @@ def decode_strings(lua):
         def convert(match):
             x = match.group(0)
 
-            # Keep newline escapes as literal "\n"
             if x.lower() in (
                 r"\u{000a}",
                 r"\x0a",
@@ -174,7 +173,6 @@ def decode_strings(lua):
                 except:
                     return x
 
-            # Keep normal escapes
             return x
 
         return re.sub(
