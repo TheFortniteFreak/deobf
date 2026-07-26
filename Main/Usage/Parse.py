@@ -144,13 +144,6 @@ def decode_strings(lua):
     def decode_content(s):
         def convert(match):
             x = match.group(0)
-
-            # Accept any amount of zeros before 'a'
-            # Examples:
-            # \u{a}
-            # \u{0a}
-            # \u{000000a}
-            # \x0a
             if re.fullmatch(r"\\u\{0*a\}|\\x0a", x.lower()):
                 return r"\n"
 
