@@ -100,12 +100,16 @@ def Pretty(code):
         if token == "function":
 
             function_mode = "expression" if previous == "=" else "declaration"
-
+        
+            # Add missing space before function (e.g. "local function")
+            if current and previous not in ("=", None):
+                space()
+        
             add("function")
             space()
-
+        
             function_header = True
-
+        
             previous = token
             continue
 
