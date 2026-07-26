@@ -7,7 +7,6 @@ def Pretty(code):
         protected.append(match.group(0))
         return f"___PROTECTED_{len(protected)-1}___"
 
-    # Protect strings and comments
     code = re.sub(
         r'(--\[\[.*?\]\]|--[^\n]*|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|\[\[.*?\]\])',
         protect,
@@ -17,21 +16,17 @@ def Pretty(code):
 
     code = code.replace("\r\n", "\n").replace("\r", "\n")
 
-    # Operators (important: long operators first)
     code = re.sub(
         r"\s*(==|~=|<=|>=|//|\.{3}|[=+\-*\/<>])\s*",
         r" \1 ",
         code
     )
 
-    # Commas
     code = re.sub(r"\s*,\s*", ", ", code)
 
-    # Parentheses
     code = re.sub(r"\(\s*", "(", code)
     code = re.sub(r"\s*\)", ")", code)
 
-    # Split obvious statements
     code = re.sub(
         r"(___PROTECTED_\d+___|\b[A-Za-z_][A-Za-z0-9_\.\[\]]*)\s+"
         r"(?=(local\b|function\b|if\b|for\b|while\b|return\b|print\s*\())",
@@ -39,14 +34,12 @@ def Pretty(code):
         code
     )
 
-    # Split assignments on same line
     code = re.sub(
         r"(\S.*?=.*?)\s+(?=[A-Za-z_][A-Za-z0-9_\.\[\]]*\s*=)",
         r"\1\n",
         code
     )
 
-    # Keywords
     code = re.sub(r"\s*(then)\s*", r" \1\n", code)
     code = re.sub(r"\s*(do)\s*", r" \1\n", code)
 
@@ -86,7 +79,6 @@ def Pretty(code):
         if not line:
             continue
 
-        # closing blocks
         if (
             line == "end"
             or line.startswith("end ")
@@ -100,7 +92,6 @@ def Pretty(code):
         output.append("    " * indent + line)
 
 
-        # opening blocks
         opens = False
 
         if re.search(r"\bfunction\s*\(", line):
@@ -132,8 +123,6 @@ def Pretty(code):
 
     code = "\n".join(output)
 
-
-    # Restore strings/comments
     def restore(match):
         return protected[int(match.group(1))]
 
