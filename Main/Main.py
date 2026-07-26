@@ -1,3 +1,18 @@
+import Usage
+import sys
+import os
+
+def Main(script, *args):
+
+    if "--fixv" in args:
+        script = Usage.FixV(script)
+    if "--parse" in args:
+        script = Usage.Parse(script)
+    if "--pretty" in args:
+        script = Usage.Pretty(script)
+
+    return script
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python Parse.py <lua_file.lua>")
