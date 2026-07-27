@@ -205,7 +205,6 @@ def decode_strings(lua):
 
 
 def decode_length(lua):
-    # Lua string length operator #
     def repl(m):
         content = m.group(2)
 
