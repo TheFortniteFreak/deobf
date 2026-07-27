@@ -4,18 +4,27 @@ import os
 
 def Main(script, *args):
     internet = True
+        
     if "--nointernet" in args:
         internet = False
+
+    if "--rcom" in args:
+        script = Usage.RCom(script)
+    
     if "--fixv" in args:
         script = Usage.FixV(script)
+
     if "--parse" in args:
         script = Usage.Parse(script)
+
     if "--pretty" in args:
-        script = Usage.Pretty(script,internet)
+        script = Usage.Pretty(script, internet)
+
     if "--rdead" in args:
         script = Usage.RDead(script)
 
     return script
+
 
 def main():
     if len(sys.argv) < 2:
