@@ -4,7 +4,7 @@ python Main/Main.py <lua_file> [--preset ...]
 ```
 
 # Presets
-`fixv` `parse` `pretty` `rdead`
+`fixv` `parse` `pretty` `rdead` `rcom`
 # Settings
 `nointernet` - Turns off any apis
 
